@@ -1,18 +1,18 @@
 #include "SpoutControls4vvvv.h"
 
 // Functions exported to VVVV (+helpers)
-
+vector<control> myControls;
 //string[] PointerToArray(string)
 SpoutControls spoutcontrols;
-vector<control> myControls;
 
 
-void InitializeControls(char *sendername, int *numControls, char** names, int *types, double* floats, double* toggles, double* press, char** text) {
 
-	int Vcontrols = numControls[0];//actually only the number of all controls needed...
-	int Tcontrols = numControls[1];
-	int Pcontrols = numControls[2];
-	int Scontrols = numControls[3];
+void InitializeControls(char *sendername, int *numControls, char** names, int *types, float* floats, float* toggles, float* press, char** text) {
+
+	int Vcontrols = (INT_PTR)numControls[0];//actually only the number of all controls needed...
+	int Tcontrols = (INT_PTR)numControls[1];
+	int Pcontrols = (INT_PTR)numControls[2];
+	int Scontrols = (INT_PTR)numControls[3];
 
 	int all = Vcontrols + Tcontrols + Pcontrols + Scontrols;
 	int v=0, t=0, p=0, s = 0;
@@ -37,15 +37,17 @@ void InitializeControls(char *sendername, int *numControls, char** names, int *t
 		}
 
 	}
+	
 	spoutcontrols.OpenControls(sendername);
 }
 
 
-bool UpdateControls(const char** text, double *floats, double *toggles, double *press, int *numControls) {
-	int Vcontrols = numControls[0];//actually only the number of all controls needed...
-	int Tcontrols = numControls[1];
-	int Pcontrols = numControls[2];
-	int Scontrols = numControls[3];
+bool UpdateControls(const char** text, float * floats, float *toggles, float *press, int *numControls) {
+	int Vcontrols = (INT_PTR)numControls[0];//actually only the number of all controls needed...
+	int Tcontrols = (INT_PTR)numControls[1];
+	int Pcontrols = (INT_PTR)numControls[2];
+	int Scontrols = (INT_PTR)numControls[3];
+
 
 	int all = Vcontrols + Tcontrols + Pcontrols + Scontrols;
 	int v = 0, t = 0, p = 0, s = 0;
@@ -79,18 +81,19 @@ bool UpdateControls(const char** text, double *floats, double *toggles, double *
 	return false;
 }
 
-void UpdateFloatControls(int *numControls, double * floats) {
+void UpdateFloatControls(int *numControls, float * floats) {
 
-	int Vcontrols = numControls[0];//actually only the number of all controls needed...
-	int Tcontrols = numControls[1];
-	int Pcontrols = numControls[2];
-	int Scontrols = numControls[3];
+	int Vcontrols = (INT_PTR)numControls[0];//actually only the number of all controls needed...
+	int Tcontrols = (INT_PTR)numControls[1];
+	int Pcontrols = (INT_PTR)numControls[2];
+	int Scontrols = (INT_PTR)numControls[3];
 
 	int all = Vcontrols + Tcontrols + Pcontrols + Scontrols;
 	int index = 0;
 
 //	vector<double> collect;
-	floats = new double[Vcontrols];
+	floats = new float[Vcontrols];
+//	float hmmmm[] = new float[Vcontrols];
 	
 	
 	if (spoutcontrols.CheckControls(myControls)) {
@@ -103,6 +106,8 @@ void UpdateFloatControls(int *numControls, double * floats) {
 			}
 		}
 	}
+
+	delete[] floats;
 
 //	return result;
 }
