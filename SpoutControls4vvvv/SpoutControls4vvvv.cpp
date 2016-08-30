@@ -1,11 +1,7 @@
 #include "SpoutControls4vvvv.h"
 
-// Functions exported to VVVV (+helpers)
 vector<control> myControls;
-//string[] PointerToArray(string)
 SpoutControls spoutcontrols;
-
-
 
 void InitializeControls(char *sendername, int *numControls, char** names, int *types, float* floats, float* toggles, float* press, char** text) {
 
@@ -91,10 +87,7 @@ void UpdateFloatControls(int *numControls, float * floats) {
 	int all = Vcontrols + Tcontrols + Pcontrols + Scontrols;
 	int index = 0;
 
-//	vector<double> collect;
 	floats = new float[Vcontrols];
-//	float hmmmm[] = new float[Vcontrols];
-	
 	
 	if (spoutcontrols.CheckControls(myControls)) {
 
@@ -108,8 +101,6 @@ void UpdateFloatControls(int *numControls, float * floats) {
 	}
 
 	delete[] floats;
-
-//	return result;
 }
 
 void CloseControls() {
