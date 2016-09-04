@@ -20,11 +20,11 @@ void InitializeControls(char *sendername, int *numControls, char** names, int *t
 			v++;
 		}
 		if (types[controlID] == 1) {
-			spoutcontrols.CreateControl(names[controlID], "bool", toggles[t]);
+			spoutcontrols.CreateControl(names[controlID], "bool", 0.0, 1.0, toggles[t]);
 			t++;
 		}
 		if (types[controlID] == 2) {
-			spoutcontrols.CreateControl(names[controlID], "event", press[p]);
+			spoutcontrols.CreateControl(names[controlID], "event",0.0, 1.0, 0.0);
 			p++;
 		}
 		if (types[controlID] == 3) {
@@ -75,32 +75,6 @@ bool UpdateControls(const char** text, float * floats, float *toggles, float *pr
 		return true;
 	}
 	return false;
-}
-
-void UpdateFloatControls(int *numControls, float * floats) {
-
-	int Vcontrols = (INT_PTR)numControls[0];//actually only the number of all controls needed...
-	int Tcontrols = (INT_PTR)numControls[1];
-	int Pcontrols = (INT_PTR)numControls[2];
-	int Scontrols = (INT_PTR)numControls[3];
-
-	int all = Vcontrols + Tcontrols + Pcontrols + Scontrols;
-	int index = 0;
-
-	floats = new float[Vcontrols];
-	
-	if (spoutcontrols.CheckControls(myControls)) {
-
-		for (int controlID = 0; controlID < all; controlID++) {
-
-			if (myControls[controlID].type == 10) {
-				floats[index]=myControls[controlID].value;
-				index++;
-			}
-		}
-	}
-
-	delete[] floats;
 }
 
 void CloseControls() {

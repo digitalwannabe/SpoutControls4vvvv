@@ -910,7 +910,11 @@ bool SpoutControls::ReadControls(void *pBuffer, vector<control> &controls)
 		for(j = 0; j<4; j++)
 			temp[j] = *buf++;
 		temp[4] = 0;
+#ifdef _M_X64
+		control.type = _atoi64(temp);
+#else
 		control.type = atoi(temp);
+#endif
 
 		// Next 256 bytes on the same line are allocated to the float or string data
 		ZeroMemory(temp, 256);
